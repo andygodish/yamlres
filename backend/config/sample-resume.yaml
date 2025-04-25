@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jsonresume/resume-schema/master/schema.json
+
+basics:
+  name: "Test User"
+  email: "test@example.com"
+
+education:
+  - institution: "Test University"
+    studyType: "Computer Science"
+    startDate: "2010"
+    endDate: "2014"
+
+
+skills:
+  - name: "Testing"
+    keywords:
+      - "Docker"
+      - "Kubernetes"
+      - "Go"
+
+work:
+  - company: "Test Corp"
+    position: "Software Tester"
+    startDate: "2014"
+    endDate: "2025"
+    highlights:
+      - "Created test environments"
+      - "Automated deployment tests"
