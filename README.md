@@ -2,6 +2,11 @@
 
 YAML + Resume. Profound, I know. 
 
-[JSON Resume Schema](https://jsonresume.org/schema)
-[ADR Tools][https://adr.github.io/]
+Yamlres is a simple web app that presents a resume in a clean, readable format from a YAML file that follows the [JSON Resume Schema](https://jsonresume.org/schema).
+
+---
+
+## Miscellaneous
+
+- [ADR Tools][https://adr.github.io/]
 
