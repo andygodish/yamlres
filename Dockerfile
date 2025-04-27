@@ -34,10 +34,10 @@ COPY --from=ui-builder /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Set environment variables
-ENV PORT=8080
+ENV PORT=8081
 
 # Expose ports for Nginx and the backend
-EXPOSE 80 8080
+EXPOSE 8080 8081
 
 # Start both Nginx and the backend
 CMD ["/bin/sh", "-c", "/app/yamlres & nginx -g 'daemon off;'"]
