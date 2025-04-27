@@ -98,6 +98,9 @@ export default {
           if (nameParts.length > 0) {
             this.username = nameParts[0].replace(/[^a-z0-9]/g, '');
           }
+
+          // Emit event with the full name to update document title
+          this.$emit('resume-loaded', this.resume.basics.name);
         }
         
         // Generate HTML content for the resume
@@ -354,7 +357,7 @@ export default {
 }
 
 .job-highlights {
-  padding-left: 20px;
+  padding-left: 13px;
   margin: 8px 0;
 }
 

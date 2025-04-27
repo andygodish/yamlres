@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <TerminalResume />
+    <TerminalResume @resume-loaded="updateDocumentTitle" />
   </div>
 </template>
 
@@ -11,6 +11,12 @@ export default {
   name: 'App',
   components: {
     TerminalResume
+  },
+  methods: {
+    updateDocumentTitle(name) {
+      // Update the document title with the name from the resume
+      document.title = `yamlres || ${name}`;
+    }
   }
 }
 </script>
