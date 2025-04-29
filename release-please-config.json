@@ -7,9 +7,7 @@
   "changelog-path": "CHANGELOG.md",
   "extra-files": [
     {
-      "type": "json",
-      "path": "ui/package.json",
-      "jsonpath": "$.version"
+      "path": "ui/package.json"
     }
   ]
 }

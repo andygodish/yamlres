@@ -23,7 +23,7 @@ docker-build-multiarch:
 #   make docker-run DOCKER_RUN_ARGS="-v $(pwd)/resume.yaml:/app/config/resume.yaml"
 docker-run:
 	@echo "Running container from $(IMAGE_NAME):$(TAG)..."
-	docker run -d --name $(APP_NAME) -p 8080:8080 -p 8081:8081 $(DOCKER_RUN_ARGS) $(IMAGE_NAME):$(TAG)
+	docker run -d --name $(APP_NAME) -p 8080:8080 $(DOCKER_RUN_ARGS) $(IMAGE_NAME):$(TAG)
 
 # Stop and remove the running container
 docker-stop:
