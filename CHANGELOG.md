@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.2.0](https://github.com/andygodish/yamlres/compare/v0.1.0...v0.2.0) (2025-04-29)
+
+
+### Features
+
+* added semver display to the UI ([3887b9b](https://github.com/andygodish/yamlres/commit/3887b9bac3a304e500341681bc57f5b5d517c1fe))
+
+
+### Miscellaneous Chores
+
+* release 0.1.0 ([bb11016](https://github.com/andygodish/yamlres/commit/bb110161e885f84a3de4412fd6e5de9e615ed160))
+* trigger release-please ([11a9789](https://github.com/andygodish/yamlres/commit/11a978999b617339069d2ebc9f8d32a98bdab1cd))
+* trigger release-please ([ee9e5ef](https://github.com/andygodish/yamlres/commit/ee9e5effb0bfdbfc4132e3f29a9cfadb011b923f))
+
 ## 0.1.0 (2025-04-29)
 
 
