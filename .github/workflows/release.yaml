@@ -1,0 +1,58 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          release-type: simple
+           
+  build-and-push:
+    needs: release-please
+    runs-on: ubuntu-latest
+    # Run the build in two cases:
+    # 1. A release was created (we'll use the release tag)
+    # 2. It's a regular push to main (we'll use 'dev' tag)
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Set Docker tag based on release
+        id: set-tag
+        run: |
+          if [ "${{ needs.release-please.outputs.release_created }}" = "true" ]; then
+            echo "DOCKER_TAG=${{ needs.release-please.outputs.tag_name }}" >> $GITHUB_ENV
+            echo "Using release tag: ${{ needs.release-please.outputs.tag_name }}"
+          else
+            echo "DOCKER_TAG=dev" >> $GITHUB_ENV
+            echo "Using dev tag (no release)"
+          fi
+      
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/yamlres:${{ env.DOCKER_TAG }}
+            ${{ needs.release-please.outputs.release_created == 'true' && format('ghcr.io/{0}/yamlres:latest', github.repository_owner) || '' }}
