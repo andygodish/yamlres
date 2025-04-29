@@ -5,19 +5,25 @@ TAG = dev
 DOCKER_BUILD_ARGS =
 DOCKER_RUN_ARGS =
 
-.PHONY: docker-build docker-run docker-stop docker-push docker-clean
+.PHONY: docker-build docker-run docker-stop docker-push docker-clean docker-build-sha docker-build-multiarch help
 
 # Build the Docker image
 docker-build:
 	@echo "Building Docker image $(IMAGE_NAME):$(TAG)..."
 	docker build $(DOCKER_BUILD_ARGS) -t $(IMAGE_NAME):$(TAG) .
 
+# Build multi-architecture Docker image
+docker-build-multiarch:
+	@echo "Building multi-arch Docker image $(IMAGE_NAME):$(TAG)..."
+	docker buildx create --use --name multiarch-builder || true
+	docker buildx build --platform linux/amd64,linux/arm64 $(DOCKER_BUILD_ARGS) -t $(IMAGE_NAME):$(TAG) --push .
+
 # Run the container locally
 # example: 
 #   make docker-run DOCKER_RUN_ARGS="-v $(pwd)/resume.yaml:/app/config/resume.yaml"
 docker-run:
 	@echo "Running container from $(IMAGE_NAME):$(TAG)..."
-	docker run -d --name $(APP_NAME) -p 8080:8080 $(DOCKER_RUN_ARGS) $(IMAGE_NAME):$(TAG)
+	docker run -d --name $(APP_NAME) -p 8080:8080 -p 8081:8081 $(DOCKER_RUN_ARGS) $(IMAGE_NAME):$(TAG)
 
 # Stop and remove the running container
 docker-stop:
@@ -46,6 +52,7 @@ docker-build-sha:
 help:
 	@echo "Available targets:"
 	@echo "  docker-build       - Build the Docker image with tag 'dev'"
+	@echo "  docker-build-multiarch - Build multi-arch Docker image (amd64+arm64)"
 	@echo "  docker-run         - Run the container locally"
 	@echo "  docker-stop        - Stop and remove the running container"
 	@echo "  docker-push        - Push the image to GHCR"
