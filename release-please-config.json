@@ -1,0 +1,13 @@
+{
+    "release-type": "simple",
+    "package-name": "yamlres",
+    "bump-minor-pre-major": true,
+    "bump-patch-for-minor-pre-major": true,
+    "extra-files": [
+      {
+        "type": "json",
+        "path": "ui/package.json",
+        "jsonpath": "$.version"
+      }
+    ]
+  }
