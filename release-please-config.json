@@ -1,13 +1,15 @@
 {
-    "release-type": "simple",
-    "package-name": "yamlres",
-    "bump-minor-pre-major": true,
-    "bump-patch-for-minor-pre-major": true,
-    "extra-files": [
-      {
-        "type": "json",
-        "path": "ui/package.json",
-        "jsonpath": "$.version"
-      }
-    ]
-  }
+  "bootstrap-sha": "3b5700e",
+  "release-type": "simple",
+  "package-name": "yamlres",
+  "bump-minor-pre-major": true,
+  "bump-patch-for-minor-pre-major": true,
+  "changelog-path": "CHANGELOG.md",
+  "extra-files": [
+    {
+      "type": "json",
+      "path": "ui/package.json",
+      "jsonpath": "$.version"
+    }
+  ]
+}
