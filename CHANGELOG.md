@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.5](https://github.com/andygodish/yamlres/compare/v0.3.4...v0.3.5) (2025-08-01)
+
+
+### Bug Fixes
+
+* typing out of basic info section functionality added, still not 'smooth' ([f5ac347](https://github.com/andygodish/yamlres/commit/f5ac3473509e3ed487d7784a4d4918ec6a3774f2))
+
 ## [0.3.4](https://github.com/andygodish/yamlres/compare/v0.3.3...v0.3.4) (2025-08-01)
 
 
