@@ -1,6 +1,6 @@
 {
   "name": "ui",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -28,8 +28,8 @@
       "browser": true
     },
     "extends": [
-       "plugin:vue/essential",
-       "eslint:recommended"
+      "plugin:vue/essential",
+      "eslint:recommended"
     ],
     "parserOptions": {
       "parser": "@babel/eslint-parser"
