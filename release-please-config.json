@@ -8,6 +8,12 @@
   "extra-files": [
     {
       "path": "ui/package.json"
+    },
+    {
+      "path": "chart/Chart.yaml"
+    },
+    {
+      "path": "chart/values.yaml"
     }
   ]
 }

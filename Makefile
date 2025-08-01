@@ -5,7 +5,15 @@ TAG = dev
 DOCKER_BUILD_ARGS =
 DOCKER_RUN_ARGS =
 
-.PHONY: docker-build docker-run docker-stop docker-push docker-clean docker-build-sha docker-build-multiarch help
+.PHONY: k3d-create docker-build docker-run docker-stop docker-push docker-clean docker-build-sha docker-build-multiarch help
+
+# Create a k3d dev cluster
+k3d-create:
+	@echo "Creating k3d cluster..."
+    k3d cluster create $(APP_NAME) \
+		--agents 2 \
+		--k3s-arg "--disable=traefik@server:0" \
+		--k3s-arg "--disable=local-storage@server:0" || true
 
 # Build the Docker image
 docker-build:
