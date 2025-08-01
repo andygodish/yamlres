@@ -2,15 +2,6 @@ export class ResumeContentGenerator {
   static generateResumeContent(resume) {
     let content = '';
     
-    // Basic info
-    if (resume.basics) {
-      content += `<div class="basic-info">
-        <div class="line">${resume.basics.name}</div>
-        <div class="line">${resume.basics.email}</div>
-      </div>`;
-    }
-    content += `<div class="section-divider"></div>`;
-
     // Skills
     content += this.generateSkillsSection(resume.skills);
     content += `<div class="section-divider"></div>`;
@@ -65,7 +56,7 @@ export class ResumeContentGenerator {
     
     work.forEach(job => {
       content += `<div class="job-entry">
-        <div class="job-title">${job.company} (${job.startDate} - ${job.endDate})</div>
+        <div class="job-title">${job.name} (${job.startDate} - ${job.endDate})</div>
         <div class="job-position">${job.position}</div>
         <ul class="job-highlights">`;
         

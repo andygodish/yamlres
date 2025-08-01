@@ -22,9 +22,13 @@
           <span class="prompt">yamlres:~$</span> 
           <span class="command">cat resume.yaml</span>
         </div>
-        
-        <!-- Typed content that appears gradually -->
-        <div ref="typedContent" v-html="typedContent"></div>
+
+        <div v-if="resume">
+          <BasicInfo v-if="resume.basics" :basics="resume.basics" />
+          <div class="section-divider"></div>
+    
+          <div v-html="typedContent"></div>
+        </div>
         
         <!-- Cursor that appears at the end of typed content when not complete -->
         <span v-if="stage === 'typing-content'" class="cursor blink">_</span>
@@ -38,10 +42,12 @@ import { ResumeService } from '@/services/resumeService';
 import { ResumeContentGenerator } from '@/utils/resumeContentGenerator';
 import { TypingAnimator } from '@/utils/typingAnimator';
 import VersionBadge from './VersionBadge.vue';
+import BasicInfo from './BasicInfo.vue';
 
 export default {
   name: 'TerminalResume',
   components: {
+    BasicInfo,
     VersionBadge
   },
   data() {
@@ -206,16 +212,6 @@ export default {
 .section-divider {
   border-top: 1px dashed #5E2750;  /* Ubuntu terminal border */
   margin: 30px 0;
-}
-
-.basic-info {
-  margin: 15px 0 25px;
-  padding-left: 10px;
-  border-left: 3px solid #E95420;  /* Ubuntu orange */
-}
-
-.basic-info .line {
-  margin-bottom: 5px;
 }
 
 .job-entry, .education-entry, .volunteer-entry {
