@@ -1,5 +1,4 @@
 {
-  "name": "yamlres",
   "version": "0.3.3",
   "private": true,
   "description": "YAML Resume Generator"
