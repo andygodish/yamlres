@@ -1,5 +1,5 @@
 {
   "version": "0.3.4",
   "private": true,
-  "description": "YAML Resume Generator"
+  "description": "This is a dummy package.json file for release please hacking purposes in conjunction with 'release-type: node', see ui/package.json for the actual package."
 }

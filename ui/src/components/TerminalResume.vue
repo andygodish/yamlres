@@ -24,7 +24,12 @@
         </div>
 
         <div v-if="resume">
-          <BasicInfo v-if="resume.basics" :basics="resume.basics" />
+          <!-- Pass typing progress to BasicInfo -->
+          <BasicInfo 
+            v-if="resume.basics" 
+            :basics="resume.basics" 
+            :typing-progress="basicsTypingProgress" 
+          />
           <div class="section-divider"></div>
     
           <div v-html="typedContent"></div>
@@ -64,6 +69,7 @@ export default {
       fullContent: '',
       typingCommandComplete: false,
       loadingData: false,
+      basicsTypingProgress: 0,  // Added for BasicInfo typing animation
       typingAnimator: new TypingAnimator({
         commandSpeed: 100,
         contentSpeed: 5,
@@ -119,16 +125,29 @@ export default {
     },
     
     startTypingContent() {
-      this.typingAnimator.typeContent(
-        this.fullContent,
-        (visibleContent) => {
-          this.typedContent = visibleContent;
+      let contentLength = this.fullContent.length;
+      let visibleLength = 0;
+      const chunkSize = 10;
+      
+      const typeNextChunk = () => {
+        if (visibleLength < contentLength) {
+          visibleLength = Math.min(visibleLength + chunkSize, contentLength);
+          this.typedContent = this.fullContent.substring(0, visibleLength);
+          
+          // Calculate progress for BasicInfo (0-100)
+          this.basicsTypingProgress = Math.min((visibleLength / contentLength) * 100, 100);
+          
           this.scrollToBottom();
-        },
-        () => {
-          this.stage = 'complete';
+          setTimeout(typeNextChunk, 5); // Using direct speed value instead of this.typingSpeed.content
+        } else {
+          this.basicsTypingProgress = 100; // Ensure it's complete
+          setTimeout(() => {
+            this.stage = 'complete';
+          }, 0); // Using direct value instead of this.pauseDuration.afterContent
         }
-      );
+      };
+      
+      typeNextChunk();
     },
 
     scrollToBottom() {
