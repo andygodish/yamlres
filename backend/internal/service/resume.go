@@ -26,17 +26,39 @@ type Resume struct {
 
 // Basics contains basic information
 type Basics struct {
-	Name  string `yaml:"name" json:"name"`
-	Email string `yaml:"email" json:"email,omitempty"`
-	// Add other fields as needed
+	Name     string    `yaml:"name" json:"name"`
+	Label    string    `yaml:"label" json:"label,omitempty"`
+	Image    string    `yaml:"image" json:"image,omitempty"`
+	Email    string    `yaml:"email" json:"email,omitempty"`
+	Phone    string    `yaml:"phone" json:"phone,omitempty"`
+	URL      string    `yaml:"url" json:"url,omitempty"`
+	Summary  string    `yaml:"summary" json:"summary,omitempty"`
+	Location Location  `yaml:"location" json:"location,omitempty"`
+	Profiles []Profile `yaml:"profiles" json:"profiles,omitempty"`
+}
+
+type Location struct {
+	Address     string `yaml:"address" json:"address,omitempty"`
+	PostalCode  string `yaml:"postalCode" json:"postalCode,omitempty"`
+	City        string `yaml:"city" json:"city,omitempty"`
+	CountryCode string `yaml:"countryCode" json:"countryCode,omitempty"`
+	Region      string `yaml:"region" json:"region,omitempty"`
+}
+
+type Profile struct {
+	Network  string `yaml:"network" json:"network"`
+	Username string `yaml:"username" json:"username"`
+	URL      string `yaml:"url" json:"url"`
 }
 
 // Work experience
 type Work struct {
-	Company    string   `yaml:"company" json:"company"`
+	Name       string   `yaml:"name" json:"name"`          
 	Position   string   `yaml:"position" json:"position"`
+	URL        string   `yaml:"url" json:"url,omitempty"`   
 	StartDate  string   `yaml:"startDate" json:"startDate,omitempty"`
 	EndDate    string   `yaml:"endDate" json:"endDate,omitempty"`
+	Summary    string   `yaml:"summary" json:"summary,omitempty"`
 	Highlights []string `yaml:"highlights" json:"highlights,omitempty"`
 }
 

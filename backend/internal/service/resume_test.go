@@ -38,7 +38,7 @@ basics:
   name: John Doe
   email: john@example.com
 work:
-  - company: ACME Corp
+  - name: ACME Corp
     position: Developer
 `
 	_, err = tmpFile.Write([]byte(validYAML))
@@ -54,7 +54,7 @@ work:
 	assert.Equal(t, "John Doe", resume.Basics.Name, "Name should be parsed correctly")
 	assert.Equal(t, "john@example.com", resume.Basics.Email, "Email should be parsed correctly")
 	assert.Len(t, resume.Work, 1, "Should have 1 work entry")
-	assert.Equal(t, "ACME Corp", resume.Work[0].Company, "Company should be parsed correctly")
+	assert.Equal(t, "ACME Corp", resume.Work[0].Name, "Company should be parsed correctly")
 }
 
 func TestGetResume_ReadFileError(t *testing.T) {

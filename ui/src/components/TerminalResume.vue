@@ -1,15 +1,6 @@
 <template>
   <div class="terminal-fullscreen">
-    <a 
-      :href="githubTagUrl" 
-      class="version-badge" 
-      target="_blank" 
-      rel="noopener noreferrer" 
-      title="View this version on GitHub"
-      @click="openGithubTag"
-    >
-      v{{ version }}
-    </a>
+    <VersionBadge :version="version" :repo-url="repoUrl" />
     <div class="terminal-content" ref="terminalContent">
       <template v-if="stage === 'typing-command'">
         <div class="command-line">
@@ -31,9 +22,13 @@
           <span class="prompt">yamlres:~$</span> 
           <span class="command">cat resume.yaml</span>
         </div>
-        
-        <!-- Typed content that appears gradually -->
-        <div ref="typedContent" v-html="typedContent"></div>
+
+        <div v-if="resume">
+          <BasicInfo v-if="resume.basics" :basics="resume.basics" />
+          <div class="section-divider"></div>
+    
+          <div v-html="typedContent"></div>
+        </div>
         
         <!-- Cursor that appears at the end of typed content when not complete -->
         <span v-if="stage === 'typing-content'" class="cursor blink">_</span>
@@ -43,17 +38,25 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { ResumeService } from '@/services/resumeService';
+import { ResumeContentGenerator } from '@/utils/resumeContentGenerator';
+import { TypingAnimator } from '@/utils/typingAnimator';
+import VersionBadge from './VersionBadge.vue';
+import BasicInfo from './BasicInfo.vue';
 
 export default {
   name: 'TerminalResume',
+  components: {
+    BasicInfo,
+    VersionBadge
+  },
   data() {
     return {
       version: process.env.VUE_APP_VERSION || 'X.Y.Z',
       repoUrl: 'https://github.com/andygodish/yamlres',
       username: 'user',
       resume: null,
-      stage: 'typing-command', // stages: typing-command, loading-data, typing-content, complete, error
+      stage: 'typing-command',
       error: null,
       commandToType: 'cat resume.yaml',
       typedCommand: '',
@@ -61,216 +64,79 @@ export default {
       fullContent: '',
       typingCommandComplete: false,
       loadingData: false,
-      typingSpeed: {
-        command: 100, // ms per character for command
-        content: 5    // ms per character for content (much faster)
-      },
-      pauseDuration: {
-        afterCommand: 500, // ms to pause after command typed
-        afterContent: 0    // ms to pause after content typed
-      }
+      typingAnimator: new TypingAnimator({
+        commandSpeed: 100,
+        contentSpeed: 5,
+        afterCommandPause: 500,
+        afterContentPause: 0
+      })
     };
   },
   computed: {
-        githubTagUrl() {
-        return `${this.repoUrl}/tree/v${this.version}`;
-      }
+    githubTagUrl() {
+      return `${this.repoUrl}/tree/v${this.version}`;
+    }
   },
   created() {
     this.startTypingCommand();
   },
   methods: {
     startTypingCommand() {
-      // Start the command typing animation
-      let i = 0;
-      const typeNextChar = () => {
-        if (i < this.commandToType.length) {
-          this.typedCommand += this.commandToType.charAt(i);
-          i++;
-          setTimeout(typeNextChar, this.typingSpeed.command);
-        } else {
-          // Command typing is complete, pause briefly then load data
+      this.typingAnimator.typeCommand(
+        this.commandToType,
+        (typedText) => {
+          this.typedCommand = typedText;
+        },
+        () => {
           this.typingCommandComplete = true;
-          setTimeout(() => {
-            this.loadingData = true;
-            this.fetchResumeData();
-          }, this.pauseDuration.afterCommand);
+          this.loadingData = true;
+          this.fetchResumeData();
         }
-      };
-      
-      setTimeout(typeNextChar, 500); // Initial delay before typing starts
+      );
     },
     
     async fetchResumeData() {
       try {
-        console.log('Attempting to fetch resume data...');
-        const response = await axios.get('/api/resume');
-        console.log('Resume data received:', response.data);
+        this.resume = await ResumeService.fetchResumeData();
         
-        this.resume = response.data;
-        
-        // Set username from resume if available
-        if (this.resume && this.resume.basics && this.resume.basics.name) {
-          const nameParts = this.resume.basics.name.toLowerCase().split(' ');
-          if (nameParts.length > 0) {
-            this.username = nameParts[0].replace(/[^a-z0-9]/g, '');
-          }
-
-          // Emit event with the full name to update document title
+        if (this.resume?.basics?.name) {
+          this.username = ResumeService.extractUsername(this.resume);
           this.$emit('resume-loaded', this.resume.basics.name);
         }
         
-        // Generate HTML content for the resume
         this.generateResumeContent();
-        
-        // Start typing out the content
         this.stage = 'typing-content';
         this.startTypingContent();
         
       } catch (err) {
-        console.error('Failed to fetch resume data:', err);
-        this.error = `Error: ${err.message}`;
+        this.error = err.message;
         this.stage = 'error';
       }
     },
     
     generateResumeContent() {
-      // This function generates the HTML content for the resume
-      let content = '';
-      
-      // Basic info
-      if (this.resume.basics) {
-        content += `<div class="basic-info">
-          <div class="line">${this.resume.basics.name}</div>
-          <div class="line">${this.resume.basics.email}</div>
-        </div>`;
-      }
-      content += `<div class="section-divider"></div>`;
-
-      // Skills
-      if (this.resume.skills && this.resume.skills.length > 0) {
-        content += `<div class="section-header">TECH STACK</div>`;
-        content += `<div class="section">`;
-        
-        this.resume.skills.forEach(skillGroup => {
-          content += `<div class="skill-group">
-            <div class="skill-group-name">${skillGroup.name}:</div>
-            <div class="skill-items">`;
-            
-          skillGroup.keywords.forEach(skill => {
-            content += `<span class="skill-item">${skill}</span>`;
-          });
-          
-          content += `</div>
-          </div>`;
-        });
-        
-        content += `</div>`;
-      }
-      
-      content += `<div class="section-divider"></div>`;
-
-      // Work experience
-      if (this.resume.work && this.resume.work.length > 0) {
-        content += `<div class="section-header">WORK EXPERIENCE</div>`;
-        content += `<div class="section">`;
-        
-        this.resume.work.forEach(job => {
-          content += `<div class="job-entry">
-            <div class="job-title">${job.company} (${job.startDate} - ${job.endDate})</div>
-            <div class="job-position">${job.position}</div>
-            <ul class="job-highlights">`;
-            
-          job.highlights.forEach(highlight => {
-            content += `<li>${highlight}</li>`;
-          });
-          
-          content += `</ul>
-          </div>`;
-        });
-        
-        content += `</div>`;
-      }
-      
-      // Education
-      content += `<div class="section-divider"></div>`;
-      if (this.resume.education && this.resume.education.length > 0) {
-        content += `<div class="section-header">EDUCATION</div>`;
-        content += `<div class="section">`;
-          
-        this.resume.education.forEach(edu => {
-          content += `<div class="education-entry">
-            <div class="education-title">${edu.institution} (${edu.startDate} - ${edu.endDate})</div>
-            <div class="education-type">${edu.studyType}</div>
-            </div>`;
-          });
-          
-        content += `</div>`;
-      }
-      content += `<div class="section-divider"></div>`;
-
-      // Certificates
-      if (this.resume.certificates && this.resume.certificates.length > 0) {
-        content += `<div class="section-header">CERTIFICATIONS</div>`;
-        content += `<div class="section">
-          <ul class="certificates-list">`;
-          
-        this.resume.certificates.forEach(cert => {
-          content += `<li class="certificate-item">${cert.name}</li>`;
-        });
-        
-        content += `</ul>
-        </div>`;
-      }
-      content += `<div class="section-divider"></div>`;
-             
-      // Volunteer
-      if (this.resume.volunteer && this.resume.volunteer.length > 0) {
-        content += `<div class="section-header">VOLUNTEER</div>`;
-        content += `<div class="section">`;
-        
-        this.resume.volunteer.forEach(vol => {
-          content += `<div class="volunteer-entry">
-            <div class="volunteer-title">${vol.organization} (${vol.startDate} - ${vol.endDate})</div>
-          </div>`;
-        });
-        
-        content += `</div>`;
-      }
-      
-      content += `<div class="section-divider"></div>`;
-      
-      this.fullContent = content;
+      this.fullContent = ResumeContentGenerator.generateResumeContent(this.resume);
     },
     
     startTypingContent() {
-      let contentLength = this.fullContent.length;
-      let visibleLength = 0;
-      const chunkSize = 10; // Characters to add per tick (for faster typing)
-      
-      const typeNextChunk = () => {
-        if (visibleLength < contentLength) {
-          visibleLength = Math.min(visibleLength + chunkSize, contentLength);
-          this.typedContent = this.fullContent.substring(0, visibleLength);
-          
-          // Scroll to keep up with typing
-          this.$nextTick(() => {
-            if (this.$refs.terminalContent) {
-              this.$refs.terminalContent.scrollTop = this.$refs.terminalContent.scrollHeight;
-            }
-          });
-          
-          setTimeout(typeNextChunk, this.typingSpeed.content);
-        } else {
-          // Content typing is complete
-          setTimeout(() => {
-            this.stage = 'complete';
-          }, this.pauseDuration.afterContent);
+      this.typingAnimator.typeContent(
+        this.fullContent,
+        (visibleContent) => {
+          this.typedContent = visibleContent;
+          this.scrollToBottom();
+        },
+        () => {
+          this.stage = 'complete';
         }
-      };
-      
-      // Start typing content
-      typeNextChunk();
+      );
+    },
+
+    scrollToBottom() {
+      this.$nextTick(() => {
+        if (this.$refs.terminalContent) {
+          this.$refs.terminalContent.scrollTop = this.$refs.terminalContent.scrollHeight;
+        }
+      });
     }
   }
 };
@@ -348,16 +214,6 @@ export default {
   margin: 30px 0;
 }
 
-.basic-info {
-  margin: 15px 0 25px;
-  padding-left: 10px;
-  border-left: 3px solid #E95420;  /* Ubuntu orange */
-}
-
-.basic-info .line {
-  margin-bottom: 5px;
-}
-
 .job-entry, .education-entry, .volunteer-entry {
   margin-bottom: 20px;
   /* padding-left: 10px; */
@@ -422,31 +278,6 @@ export default {
   padding: 10px 0 30px;
   color: #FFFFFF;
   font-style: italic;
-}
-
-.version-badge {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  background-color: rgba(233, 84, 32, 0.7); /* Semi-transparent Ubuntu orange */
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.8em;
-  font-weight: bold;
-  z-index: 1001;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  text-decoration: none;
-  transition: background-color 0.2s, transform 0.1s;
-}
-
-.version-badge:hover {
-  background-color: rgba(233, 84, 32, 0.9); /* Slightly more opaque on hover */
-  transform: scale(1.05);
-}
-
-.version-badge:active {
-  transform: scale(0.98);
 }
 
 @keyframes blink {

@@ -1,28 +1,170 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/jsonresume/resume-schema/master/schema.json
-
 basics:
   name: "Test User"
+  label: "Full Stack Developer"
+  image: ""
   email: "test@example.com"
+  phone: "(555) 123-4567"
+  url: "https://testuser.dev"
+  summary: "Experienced software developer with expertise in modern web technologies and cloud infrastructure. Passionate about building scalable applications and mentoring junior developers."
+  location:
+    address: "123 Main Street"
+    postalCode: "12345"
+    city: "Tech City"
+    countryCode: "US"
+    region: "California"
+  profiles:
+    - network: "GitHub"
+      username: "testuser"
+      url: "https://github.com/testuser"
+    - network: "LinkedIn"
+      username: "testuser"
+      url: "https://linkedin.com/in/testuser"
+
+work:
+  - name: "Test Corp"
+    position: "Senior Software Engineer"
+    url: "https://testcorp.com"
+    startDate: "2020"
+    endDate: "2025"
+    summary: "Led development of microservices architecture serving millions of users"
+    highlights:
+      - "Architected and implemented scalable microservices handling 10M+ requests daily"
+      - "Reduced deployment time by 75% through CI/CD pipeline optimization"
+      - "Mentored 5 junior developers and led code review processes"
+  - name: "StartupCo"
+    position: "Software Developer"
+    url: "https://startupco.com"
+    startDate: "2018"
+    endDate: "2020"
+    summary: "Full-stack development for early-stage fintech startup"
+    highlights:
+      - "Built responsive web applications using React and Node.js"
+      - "Implemented secure payment processing systems"
+      - "Collaborated with product team to define technical requirements"
+
+volunteer:
+  - organization: "Code for Good"
+    position: "Technical Volunteer"
+    url: "https://codeforgood.org"
+    startDate: "2019"
+    endDate: "2025"
+    summary: "Contributing technical skills to non-profit organizations"
+    highlights:
+      - "Developed website for local animal shelter, increasing adoptions by 30%"
+      - "Organized monthly coding workshops for underrepresented youth"
 
 education:
-  - institution: "Test University"
-    studyType: "Computer Science"
-    startDate: "2010"
-    endDate: "2014"
+  - institution: "Tech University"
+    url: "https://techuniversity.edu"
+    area: "Computer Science"
+    studyType: "Bachelor of Science"
+    startDate: "2014"
+    endDate: "2018"
+    score: "3.8"
+    courses:
+      - "CS101 - Introduction to Programming"
+      - "CS201 - Data Structures and Algorithms"
+      - "CS301 - Database Systems"
 
+awards:
+  - title: "Employee of the Year"
+    date: "2023"
+    awarder: "Test Corp"
+    summary: "Recognized for outstanding contributions to team productivity and code quality"
+  - title: "Hackathon Winner"
+    date: "2022"
+    awarder: "TechConf 2022"
+    summary: "First place for developing innovative IoT solution"
+
+certificates:
+  - name: "AWS Certified Solutions Architect"
+    date: "2023"
+    issuer: "Amazon Web Services"
+    url: "https://aws.amazon.com/certification/"
+  - name: "Certified Kubernetes Administrator"
+    date: "2022"
+    issuer: "Cloud Native Computing Foundation"
+    url: "https://cncf.io"
+
+publications:
+  - name: "Microservices Design Patterns"
+    publisher: "Tech Journal"
+    releaseDate: "2023"
+    url: "https://techjournal.com/microservices-patterns"
+    summary: "Comprehensive guide to implementing microservices architecture in production environments"
 
 skills:
-  - name: "Testing"
+  - name: "Programming Languages"
+    level: "Expert"
+    keywords:
+      - "Go"
+      - "JavaScript"
+      - "Python"
+      - "TypeScript"
+  - name: "Web Technologies"
+    level: "Advanced"
+    keywords:
+      - "React"
+      - "Vue.js"
+      - "Node.js"
+      - "HTML5"
+      - "CSS3"
+  - name: "DevOps & Cloud"
+    level: "Advanced"
     keywords:
       - "Docker"
       - "Kubernetes"
-      - "Go"
+      - "AWS"
+      - "Terraform"
+      - "Jenkins"
+  - name: "Databases"
+    level: "Intermediate"
+    keywords:
+      - "PostgreSQL"
+      - "MongoDB"
+      - "Redis"
 
-work:
-  - company: "Test Corp"
-    position: "Software Tester"
-    startDate: "2014"
-    endDate: "2025"
+languages:
+  - language: "English"
+    fluency: "Native speaker"
+  - language: "Spanish"
+    fluency: "Conversational"
+
+interests:
+  - name: "Technology"
+    keywords:
+      - "Open Source"
+      - "Machine Learning"
+      - "IoT"
+  - name: "Outdoor Activities"
+    keywords:
+      - "Hiking"
+      - "Photography"
+      - "Rock Climbing"
+
+references:
+  - name: "Jane Smith"
+    reference: "Test User is an exceptional developer with strong problem-solving skills and excellent teamwork abilities."
+  - name: "Bob Johnson"
+    reference: "One of the most dedicated and knowledgeable developers I've worked with. Highly recommended."
+
+projects:
+  - name: "E-commerce Platform"
+    startDate: "2023"
+    endDate: "2024"
+    description: "Full-stack e-commerce solution built with modern web technologies"
     highlights:
-      - "Created test environments"
-      - "Automated deployment tests"
+      - "Implemented real-time inventory management"
+      - "Integrated multiple payment gateways"
+      - "Achieved 99.9% uptime in production"
+    url: "https://github.com/testuser/ecommerce-platform"
+  - name: "Weather Monitoring System"
+    startDate: "2022"
+    endDate: "2023"
+    description: "IoT-based weather monitoring system with real-time data visualization"
+    highlights:
+      - "Deployed 50+ sensors across the city"
+      - "Built responsive dashboard for data visualization"
+      - "Implemented predictive analytics for weather forecasting"
+    url: "https://github.com/testuser/weather-monitor"
