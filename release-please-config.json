@@ -1,13 +1,15 @@
 {
   "bootstrap-sha": "3b5700e",
-  "release-type": "simple",
+  "release-type": "node",
   "package-name": "yamlres",
   "bump-minor-pre-major": true,
   "bump-patch-for-minor-pre-major": true,
   "changelog-path": "CHANGELOG.md",
   "extra-files": [
     {
-      "path": "ui/package.json"
+      "path": "ui/package.json",
+      "type": "json",
+      "jsonpath": "$.version"
     }
   ]
 }
