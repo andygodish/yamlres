@@ -1,15 +1,6 @@
 <template>
   <div class="terminal-fullscreen">
-    <a 
-      :href="githubTagUrl" 
-      class="version-badge" 
-      target="_blank" 
-      rel="noopener noreferrer" 
-      title="View this version on GitHub"
-      @click="openGithubTag"
-    >
-      v{{ version }}
-    </a>
+    <VersionBadge :version="version" :repo-url="repoUrl" />
     <div class="terminal-content" ref="terminalContent">
       <template v-if="stage === 'typing-command'">
         <div class="command-line">
@@ -46,9 +37,13 @@
 import { ResumeService } from '@/services/resumeService';
 import { ResumeContentGenerator } from '@/utils/resumeContentGenerator';
 import { TypingAnimator } from '@/utils/typingAnimator';
+import VersionBadge from './VersionBadge.vue';
 
 export default {
   name: 'TerminalResume',
+  components: {
+    VersionBadge
+  },
   data() {
     return {
       version: process.env.VUE_APP_VERSION || 'X.Y.Z',
@@ -287,31 +282,6 @@ export default {
   padding: 10px 0 30px;
   color: #FFFFFF;
   font-style: italic;
-}
-
-.version-badge {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  background-color: rgba(233, 84, 32, 0.7); /* Semi-transparent Ubuntu orange */
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.8em;
-  font-weight: bold;
-  z-index: 1001;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  text-decoration: none;
-  transition: background-color 0.2s, transform 0.1s;
-}
-
-.version-badge:hover {
-  background-color: rgba(233, 84, 32, 0.9); /* Slightly more opaque on hover */
-  transform: scale(1.05);
-}
-
-.version-badge:active {
-  transform: scale(0.98);
 }
 
 @keyframes blink {
