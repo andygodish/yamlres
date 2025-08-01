@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/andygodish/yamlres/compare/yamlres-v0.3.2...yamlres-v0.3.3) (2025-08-01)
+
+
+### Bug Fixes
+
+* rp config in actions ([9d3b0d0](https://github.com/andygodish/yamlres/commit/9d3b0d04aa921767dc67d3439005ad510d889aed))
+
 ## [0.3.2](https://github.com/andygodish/yamlres/compare/yamlres-v0.3.1...yamlres-v0.3.2) (2025-08-01)
 
 
