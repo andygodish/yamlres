@@ -3,7 +3,6 @@
     ".": {
       "bootstrap-sha": "4a381d1fcd12a03791a478ab782c0d0e9a9575d9",
       "release-type": "node",
-      "package-name": "yamlres",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
       "changelog-path": "CHANGELOG.md",
