@@ -18,17 +18,18 @@
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "^5.0.8",
     "@vue/cli-service": "~5.0.0",
-    "eslint": "^9.0.0",
+    "eslint": "^8.57.1",
     "eslint-plugin-vue": "^10.0.0"
   },
   "eslintConfig": {
     "root": true,
     "env": {
-      "node": true
+      "node": true,
+      "browser": true
     },
     "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
+       "plugin:vue/essential",
+       "eslint:recommended"
     ],
     "parserOptions": {
       "parser": "@babel/eslint-parser"
