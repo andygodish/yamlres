@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/andygodish/yamlres/compare/v0.3.0...v0.3.0) (2025-08-01)
+
+
+### Miscellaneous Chores
+
+* trigger release-please ([d78ac4f](https://github.com/andygodish/yamlres/commit/d78ac4f99bd15bda6577dcf8b29e1fc2564ce944))
+
 ## [0.3.0](https://github.com/andygodish/yamlres/compare/v0.2.0...v0.3.0) (2025-08-01)
 
 
