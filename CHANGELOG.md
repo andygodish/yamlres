@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.3.0](https://github.com/andygodish/yamlres/compare/v0.2.0...v0.3.0) (2025-08-01)
+
+
+### Features
+
+* added fields to Basics schema in backend, refactored frontend to use a basicInfo component ([357fb0b](https://github.com/andygodish/yamlres/commit/357fb0b0804149bc8253e78d1cffe7d8a2b4ed5e))
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v1.11.0 ([c631948](https://github.com/andygodish/yamlres/commit/c6319483da5d844f80e45170c18463fc40542f9e))
+* **deps:** update dependency axios to v1.11.0 ([025ad7a](https://github.com/andygodish/yamlres/commit/025ad7a17a2a870ce722fd88ecba9c01d91a8c15))
+* **deps:** update dependency core-js to v3.44.0 ([52c1eb0](https://github.com/andygodish/yamlres/commit/52c1eb093bd24253360b56c82c7ecb26c1381e30))
+* **deps:** update dependency core-js to v3.44.0 ([fba6b80](https://github.com/andygodish/yamlres/commit/fba6b808a8e0611be8070ce3c0ccebbedc755160))
+* **deps:** update dependency vue to v3.5.18 ([fc32800](https://github.com/andygodish/yamlres/commit/fc32800541b7f37e0f2c5591eb21ca34ef5c4d79))
+* **deps:** update dependency vue to v3.5.18 ([61bbf16](https://github.com/andygodish/yamlres/commit/61bbf160cdce0c385192e791127b151c98ea928c))
+* downgrading eslint due to internal package conflicts ([110c7d1](https://github.com/andygodish/yamlres/commit/110c7d1e5dfbc44f90e2af7a3bc87b756fa77d01))
+
 ## [0.2.0](https://github.com/andygodish/yamlres/compare/v0.1.0...v0.2.0) (2025-04-29)
 
 
