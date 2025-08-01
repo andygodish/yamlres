@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.2](https://github.com/andygodish/yamlres/compare/yamlres-v0.3.1...yamlres-v0.3.2) (2025-08-01)
+
+
+### Bug Fixes
+
+* dummy package.json in root ([d36983c](https://github.com/andygodish/yamlres/commit/d36983c43ddff0dab52b85ed7b7495f1acb12b0f))
+* removing package name ([ea30352](https://github.com/andygodish/yamlres/commit/ea303527a3ba31a8de0e0a9a7bef1cd3d08d9053))
+
 ## [0.3.1](https://github.com/andygodish/yamlres/compare/yamlres-v0.3.0...yamlres-v0.3.1) (2025-08-01)
 
 
