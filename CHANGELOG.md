@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.6](https://github.com/andygodish/yamlres/compare/v0.3.5...v0.3.6) (2026-01-26)
+
+
+### Bug Fixes
+
+* missing company name from work experience ([83af8f0](https://github.com/andygodish/yamlres/commit/83af8f04d1a10479125e5b6772d3daf099e7884d))
+
 ## [0.3.5](https://github.com/andygodish/yamlres/compare/v0.3.4...v0.3.5) (2025-08-01)
 
 
