@@ -55,8 +55,11 @@ export class ResumeContentGenerator {
     content += `<div class="section">`;
     
     work.forEach(job => {
+      const company = job.company || job.name || 'Company';
+      const start = job.startDate || '';
+      const end = job.endDate || 'Present';
       content += `<div class="job-entry">
-        <div class="job-title">${job.name} (${job.startDate} - ${job.endDate})</div>
+        <div class="job-title">${company} (${start} - ${end})</div>
         <div class="job-position">${job.position}</div>
         <ul class="job-highlights">`;
         

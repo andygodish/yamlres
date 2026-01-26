@@ -53,7 +53,9 @@ type Profile struct {
 
 // Work experience
 type Work struct {
-	Name       string   `yaml:"name" json:"name"`          
+	// Both "company" and "name" are used in the wild; support either.
+	Company    string   `yaml:"company" json:"company,omitempty"`
+	Name       string   `yaml:"name" json:"name,omitempty"`          
 	Position   string   `yaml:"position" json:"position"`
 	URL        string   `yaml:"url" json:"url,omitempty"`   
 	StartDate  string   `yaml:"startDate" json:"startDate,omitempty"`
