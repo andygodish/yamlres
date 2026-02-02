@@ -1,5 +1,5 @@
 # Stage 1: Build the Vue.js frontend
-FROM --platform=$BUILDPLATFORM node:22-alpine AS ui-builder
+FROM --platform=$BUILDPLATFORM node:24-alpine AS ui-builder
 WORKDIR /app
 COPY ui/package*.json ./
 RUN npm install
